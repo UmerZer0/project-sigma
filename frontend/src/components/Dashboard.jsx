@@ -1,12 +1,13 @@
-function App() {
-  const [count, setCount] = useState(0)
+import { Link } from "react-router-dom"
+
+function Dashboard() {
 
   return (
     <>
-      <button>Stock</button>
-      <button>Invoice</button>
-      <button>Admin</button>
-      <button>Khata</button>
+        <Link to="/stock"><button>Stock</button></Link>
+        <Link to="/invoice"><button>Invoice</button></Link>
+        <Link to="/admin"><button>Admin</button></Link>
+        <Link to="/khata"><button>Khata</button></Link>       
     </>
   )
 }
