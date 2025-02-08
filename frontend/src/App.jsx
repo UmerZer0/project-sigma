@@ -2,7 +2,7 @@
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import './App.css'
+// import './App.css'
 
 import Dashboard from "./components/Dashboard";
 import Stock from "./components/Stock/Home";
@@ -25,7 +25,7 @@ function App() {
         </Routes>
       </BrowserRouter>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

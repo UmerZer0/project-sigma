@@ -1,15 +1,29 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
 function Dashboard() {
-
   return (
     <>
-        <Link to="/stock"><button>Stock</button></Link>
-        <Link to="/invoice"><button>Invoice</button></Link>
-        <Link to="/admin"><button>Admin</button></Link>
-        <Link to="/khata"><button>Khata</button></Link>       
+      <div className="dashboard-body">
+        <h1>
+          Salam, Welcome to <span>Molti Soft</span>
+        </h1>
+        <div className="dashboard-container">
+          <Link className="button-primary" to="/stock">
+            Stock
+          </Link>
+          <Link className="button-primary" to="/invoice">
+            Invoice
+          </Link>
+          <Link className="button-primary" to="/admin">
+            Admin
+          </Link>
+          <Link className="button-primary" to="/khata">
+            Khata
+          </Link>
+        </div>
+      </div>
     </>
-  )
+  );
 }
 
-export default Dashboard
+export default Dashboard;

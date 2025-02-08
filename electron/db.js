@@ -1,27 +1,68 @@
 const Database = require("better-sqlite3");
 
-const db = new Database("Molti.db");
+// Initialize database
+const db = new Database("Molti.db", { verbose: console.log });
 
-// Create the table if it doesn't exist
-db.exec(`
-  CREATE TABLE IF NOT EXISTS products (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    price DECIMAL(10, 2) NOT NULL
-  )
-`);
+// Create table if it doesn't exist
+try {
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS products (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      price DECIMAL(10, 2) NOT NULL
+    )
+  `);
+  console.log("✅ Table 'products' is ready.");
+} catch (err) {
+  console.error("❌ Error creating table:", err);
+}
 
-console.log("Database initialized successfully.");
-
-// Function to insert a product
+// Insert a product
 const insertProduct = (name, price) => {
-  const stmt = db.prepare("INSERT INTO products (name, price) VALUES (?, ?)");
-  return stmt.run(name, price);
+  try {
+    const stmt = db.prepare("INSERT INTO products (name, price) VALUES (?, ?)");
+    const result = stmt.run(name, price);
+    console.log(`✅ Product inserted: ${name} ($${price})`);
+    return result;
+  } catch (err) {
+    console.error("❌ Error inserting product:", err);
+    return null;
+  }
 };
 
-// Function to get all products
+// Get all products
 const getAllProducts = () => {
-  return db.prepare("SELECT * FROM products").all();
+  try {
+    const products = db.prepare("SELECT * FROM products").all();
+    console.log(`📦 Retrieved ${products.length} products.`);
+    return products;
+  } catch (err) {
+    console.error("❌ Error fetching products:", err);
+    return [];
+  }
 };
 
-module.exports = { insertProduct, getAllProducts };
+// Get product by ID
+const getProductById = (id) => {
+  try {
+    const stmt = db.prepare("SELECT * FROM products WHERE id = ?");
+    const product = stmt.get(id);
+    if (product) {
+      console.log(`🔍 Found product: ${product.name} ($${product.price})`);
+    } else {
+      console.log(`❌ No product found with ID ${id}`);
+    }
+    return product;
+  } catch (err) {
+    console.error("❌ Error fetching product by ID:", err);
+    return null;
+  }
+};
+
+// Close database on exit
+process.on("exit", () => {
+  db.close();
+  console.log("🔻 Database connection closed.");
+});
+
+module.exports = { insertProduct, getAllProducts, getProductById };
