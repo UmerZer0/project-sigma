@@ -17,21 +17,41 @@ function Home() {
 
   return (
     <>
-      <div>This is Stock Home</div>
-      <Link to="/">
-        <button>Back</button>
-      </Link>
+      <div className="back-btn-box">
+        <Link className="back-btn btn" to="/">
+          Back to Dashboard
+        </Link>
+      </div>
 
-      <div>
-        <h1>Product List</h1>
-        <button onClick={addProduct}>Add Product</button>
-        <ul>
+      <div className="stock-body">
+        <h1>List of Products</h1>
+        <table>
+          <thead>
+            <tr>
+              <th className="first-col ">&nbsp;&nbsp;Name</th>
+              <th>&nbsp;Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr></tr>
+            {products.map((product) => (
+              <tr key={product.id}>
+                <td className="first-col">{product.name}</td>
+                <td>${product.price}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        {/* <ul>
           {products.map((product) => (
             <li key={product.id}>
-              {product.name} - ${product.price}
+            {product.name} - ${product.price}
             </li>
-          ))}
-        </ul>
+            ))}
+        </ul> */}
+        <button className="add-btn btn" onClick={addProduct}>
+          +
+        </button>
       </div>
     </>
   );

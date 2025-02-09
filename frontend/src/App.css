@@ -6,10 +6,13 @@
   /* Font Sizes */
   --font-size-sm: 0.875rem; /* 14px */
   --font-size-base: 1rem; /* 16px */
+  --font-size-md: 1.05rem; /* 18px */
   --font-size-lg: 1.25rem; /* 20px */
   --font-size-h1: 2rem; /* 32px */
   --font-size-h2: 1.5rem; /* 24px */
   --font-size-h3: 1.25rem; /* 20px */
+
+  --font-size-icon: 4rem; /* 24px */
 
   /* Line Heights */
   --line-height-base: 1.5;
@@ -44,17 +47,12 @@
 
   /* Button size */
   --button-primary-size: 9rem;
+  --button-secondary-size: 4rem;
+  --button-flat-size: 2.5rem;
 }
 
-/* body {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  font-family: var(--font-primary);
-  font-size: var(--font-size-base);
-  line-height: var(--line-height-base);
-} */
-
-body {
+body,
+button {
   margin: 0;
   padding: 0;
   background-color: #1d1d1d;
@@ -94,31 +92,67 @@ h1 > span {
   /* margin-bottom: 3rem; */
 }
 
-.button-primary {
-  background-color: var(--bg-secondary);
+.back-btn-box {
+  display: grid;
 
+  grid-template-columns: 1fr;
+  /* place-self: center; */
+  /* max-width: min-content; */
+
+  place-items: center;
+  margin: auto 2rem;
+  /* margin-bottom: 3rem; */
+}
+
+.btn {
+  background-color: var(--bg-secondary);
   border: 1px solid var(--border);
   border-radius: calc(var(--button-primary-size) * 0.05);
-
-  min-width: var(--button-primary-size);
-  min-height: var(--button-primary-size);
-  line-height: var(--button-primary-size);
 
   color: var(--text-primary);
   font-family: var(--font-primary);
   font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-bold);
 
   cursor: pointer;
 
   text-align: center;
   text-decoration: none;
 
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
 
   &:hover {
     background-color: var(--bg-hover);
+    border-color: var(--border-hover);
+    color: var(--text-link);
   }
+}
+
+.back-btn {
+  /* max-width: 30rem; */
+  min-width: 80vw;
+  /* max-width: 30rem; */
+
+  min-height: var(--button-flat-size);
+  line-height: var(--button-flat-size);
+}
+
+.button-primary {
+  min-width: var(--button-primary-size);
+  min-height: var(--button-primary-size);
+  line-height: var(--button-primary-size);
+}
+
+.add-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+
+  min-width: var(--button-secondary-size);
+  min-height: var(--button-secondary-size);
+  line-height: 0;
+
+  font-size: var(--font-size-icon);
 }
 
 @media (min-width: 40em) {
@@ -130,5 +164,8 @@ h1 > span {
 @media (min-width: 50em) {
   .dashboard-container {
     grid-template-columns: repeat(4, 1fr);
+  }
+  .back-btn {
+    min-width: 40rem;
   }
 }
