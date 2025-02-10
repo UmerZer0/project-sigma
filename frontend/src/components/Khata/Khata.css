@@ -1,0 +1,17 @@
+.khata-body {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.sale-section,
+.expense-section {
+  display: grid;
+  justify-content: center;
+}
+
+.expense-body {
+  /* border: left 1px solid var(--border); */
+  /* border-left: 1px solid var(--border);
+  min-width: 100%;
+  outline: auto; */
+}
