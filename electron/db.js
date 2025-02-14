@@ -6,11 +6,21 @@ const db = new Database("Molti.db", { verbose: console.log });
 // Create table if it doesn't exist
 try {
   db.exec(`
-    CREATE TABLE IF NOT EXISTS products (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL,
-      price DECIMAL(10, 2) NOT NULL
-    )
+    CREATE TABLE IF NOT EXISTS "products" (
+    "ID"	INTEGER NOT NULL UNIQUE,
+    "Name"	TEXT DEFAULT '*product name*',
+    "Price"	INTEGER DEFAULT 0,
+    PRIMARY KEY("ID" AUTOINCREMENT)
+  );
+    CREATE TABLE IF NOT EXISTS "stock" (
+    "ID"	INTEGER NOT NULL UNIQUE,
+    "Product Name"	TEXT,
+    "Quantity"	NUMERIC DEFAULT 0,
+    "Price"	INTEGER,
+    PRIMARY KEY("ID" AUTOINCREMENT),
+    FOREIGN KEY("Price") REFERENCES "products"("Price"),
+    FOREIGN KEY("Product Name") REFERENCES "products"("Name") ON DELETE CASCADE ON UPDATE CASCADE
+  );
   `);
   console.log("✅ Table 'products' is ready.");
 } catch (err) {
@@ -42,6 +52,17 @@ const getAllProducts = () => {
   }
 };
 
+const getStock = () => {
+  try {
+    const stock = db.prepare("SELECT * FROM stock").all();
+    console.log(`📦 Retrieved ${stock.length} stock.`);
+    return stock;
+  } catch (err) {
+    console.error("❌ Error fetching stock:", err);
+    return [];
+  }
+};
+
 // Get product by ID
 const getProductById = (id) => {
   try {
@@ -65,4 +86,4 @@ process.on("exit", () => {
   console.log("🔻 Database connection closed.");
 });
 
-module.exports = { insertProduct, getAllProducts, getProductById };
+module.exports = { insertProduct, getAllProducts, getProductById, getStock };

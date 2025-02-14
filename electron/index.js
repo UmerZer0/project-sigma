@@ -1,6 +1,6 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
-const { insertProduct, getAllProducts } = require("./db"); // Import database functions
+const { insertProduct, getAllProducts, getStock } = require("./db"); // Import database functions
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -33,4 +33,8 @@ ipcMain.handle("insert-product", async (event, { name, price }) => {
 
 ipcMain.handle("get-products", async () => {
   return getAllProducts();
+});
+
+ipcMain.handle("get-stock", async () => {
+  return getStock();
 });
