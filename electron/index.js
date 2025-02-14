@@ -1,6 +1,11 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
-const { insertProduct, getAllProducts, getStock } = require("./db"); // Import database functions
+const {
+  insertProduct,
+  getAllProducts,
+  getStock,
+  updateStock,
+} = require("./db"); // Import database functions
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -27,9 +32,6 @@ app.on("window-all-closed", () => {
 });
 
 // IPC handlers for database
-ipcMain.handle("insert-product", async (event, { name, price }) => {
-  return insertProduct(name, price);
-});
 
 ipcMain.handle("get-products", async () => {
   return getAllProducts();
@@ -37,4 +39,16 @@ ipcMain.handle("get-products", async () => {
 
 ipcMain.handle("get-stock", async () => {
   return getStock();
+});
+
+ipcMain.handle("insert-product", async (event, { name, price }) => {
+  return insertProduct(name, price);
+});
+
+ipcMain.handle("insert-stock", async (event, { product_id, quantity }) => {
+  return insertStock(product_id, quantity);
+});
+
+ipcMain.handle("update-stock", async (event, { quantity, product_name }) => {
+  return updateStock(quantity, product_name);
 });

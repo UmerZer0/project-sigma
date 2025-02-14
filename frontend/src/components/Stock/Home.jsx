@@ -13,9 +13,27 @@ function Home() {
   }, []);
 
   const addStock = async () => {
-    // await window.api.insertStock() //!Implement this
+    await window.api.insertStock(Name, Quantity);
     const updatedStock = await window.api.getStock();
     setStock(updatedStock);
+  };
+
+  const onSubmit = (e) => {
+    console.log("onSubmit Triggered");
+
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    const name = formData.get("Product-Name");
+    const quantity = formData.get("Quantity");
+    stockUpdate(quantity, name);
+  };
+
+  const stockUpdate = async (Quantity, Name) => {
+    await window.api.updateStock(Quantity, Name);
+    const updatedStock = await window.api.getStock();
+    setStock(updatedStock);
+    closeModal();
   };
 
   // const addProduct = async () => {
@@ -68,13 +86,27 @@ function Home() {
               &times;
             </button>
             <h2>Add Product</h2>
-            <form>
+            <form onSubmit={onSubmit}>
               <label htmlFor="name">Name:</label>
-              <select name="" id=""></select>
-              {/* <input type="select" id="name" name="name" /> */}
-              <label htmlFor="price">Price:</label>
-              <input type="number" id="price" name="price" />
-              <button type="submit" className=" btn">
+              <select name="Product-Name" id="Product-Name">
+                {products.map((product) => (
+                  <option
+                    key={product.Product_Name}
+                    value={product.Product_Name}
+                  >
+                    {product.Name}
+                  </option>
+                ))}
+              </select>
+              <label htmlFor="qunatity">Quantity:</label>
+              <input
+                defaultValue={0}
+                type="number"
+                id="Quantity"
+                name="Quantity"
+              />
+              {/* Add a button that sends the inputted data */}
+              <button type="submit" className="btn">
                 Add
               </button>
             </form>

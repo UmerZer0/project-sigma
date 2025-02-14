@@ -14,7 +14,7 @@ try {
   );
     CREATE TABLE IF NOT EXISTS "stock" (
     "ID"	INTEGER NOT NULL UNIQUE,
-    "Product Name"	TEXT,
+    "Product_Name"	TEXT,
     "Quantity"	NUMERIC DEFAULT 0,
     "Price"	INTEGER,
     PRIMARY KEY("ID" AUTOINCREMENT),
@@ -26,19 +26,6 @@ try {
 } catch (err) {
   console.error("❌ Error creating table:", err);
 }
-
-// Insert a product
-const insertProduct = (name, price) => {
-  try {
-    const stmt = db.prepare("INSERT INTO products (name, price) VALUES (?, ?)");
-    const result = stmt.run(name, price);
-    console.log(`✅ Product inserted: ${name} ($${price})`);
-    return result;
-  } catch (err) {
-    console.error("❌ Error inserting product:", err);
-    return null;
-  }
-};
 
 // Get all products
 const getAllProducts = () => {
@@ -52,6 +39,7 @@ const getAllProducts = () => {
   }
 };
 
+// Get stock
 const getStock = () => {
   try {
     const stock = db.prepare("SELECT * FROM stock").all();
@@ -86,4 +74,56 @@ process.on("exit", () => {
   console.log("🔻 Database connection closed.");
 });
 
-module.exports = { insertProduct, getAllProducts, getProductById, getStock };
+// Insert a product
+const insertProduct = (name, price) => {
+  try {
+    const stmt = db.prepare("INSERT INTO products (name, price) VALUES (?, ?)");
+    const result = stmt.run(name, price);
+    console.log(`✅ Product inserted: ${name} ($${price})`);
+    return result;
+  } catch (err) {
+    console.error("❌ Error inserting product:", err);
+    return null;
+  }
+};
+
+// Insert stock
+const insetStock = (name, quantity) => {
+  try {
+    const stmt = db.prepare(
+      "INSERT INTO stock (Product_Name, Quantity) VALUES (?, ?)"
+    );
+    const result = stmt.run(name, quantity);
+    console.log(`✅ Stock inserted: ${name} (${quantity})`);
+    return result;
+  } catch (err) {
+    console.error("❌ Error inserting stock:", err);
+    return null;
+  }
+};
+
+//Update stock
+const updateStock = (quantity, name) => {
+  try {
+    const stmt = db.prepare(
+      "UPDATE stock SET Quantity = ? WHERE Product_Name = ?"
+    );
+    const result = stmt.run(quantity, name);
+    console.log(`✅ Stock updated: ${name} (${quantity})`);
+    return result;
+  } catch (err) {
+    console.error("❌ Error updating stock:", err);
+    return null;
+  }
+};
+
+// Export functions
+
+module.exports = {
+  getAllProducts,
+  getProductById,
+  getStock,
+  insertProduct,
+  insetStock,
+  updateStock,
+};
