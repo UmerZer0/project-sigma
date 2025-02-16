@@ -145,6 +145,7 @@ h1 > span {
 
 .add-btn {
   position: fixed;
+  /*! Erm What the Sigma  */
   bottom: 2rem;
   right: 2rem;
 
@@ -174,6 +175,40 @@ h1 > span {
   border: 1px solid var(--border);
   border-radius: calc(var(--button-primary-size) * 0.05);
   width: 80%;
+}
+
+table {
+  width: 80%;
+  border-collapse: collapse;
+
+  text-align: left;
+  max-width: 80%;
+  margin-bottom: 1rem;
+}
+
+table > thead > tr > th {
+  color: var(--text-muted);
+  padding: 0.45rem 0.6rem 0.4rem;
+}
+
+table > tbody {
+  /* border: 1px solid var(--border); */
+  color: var(--text-primary);
+}
+
+table > tbody > tr > td {
+  font-size: var(--font-size-md);
+  border: 1px solid var(--border);
+  border-left: none;
+  padding: 0.45rem 0.6rem 0.4rem;
+}
+
+.first-col {
+  padding-left: 1.5rem !important;
+}
+
+table > tbody > tr > td:last-of-type {
+  border-right: none;
 }
 
 @media (min-width: 40em) {

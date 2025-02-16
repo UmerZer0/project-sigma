@@ -1,18 +1,30 @@
 .khata-body {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 40em) {
+  .khata-body {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .sale-section,
 .expense-section {
   display: grid;
-  justify-content: center;
+  justify-items: center;
+  grid-template-rows: auto 1fr;
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-semibold);
 }
 
-.khata-body:first-child {
+.sale-body {
+  /* outline: auto; */
   border-right: 1px solid var(--border);
 }
 
+.outer-body {
+}
 .expense-body {
   /* border: left 1px solid var(--border); */
   /* border-left: 1px solid var(--border);
