@@ -12,21 +12,13 @@ function Home() {
     window.api.getStock().then(setStock);
   }, []);
 
-  const addStock = async () => {
-    await window.api.insertStock(Name, Quantity);
+  const addStock = async (name, quantity) => {
+    const price = products.find((product) => product.Name === name);
+
+    await window.api.insertStock(name, quantity, price.Price);
     const updatedStock = await window.api.getStock();
     setStock(updatedStock);
-  };
-
-  const onSubmit = (e) => {
-    console.log("onSubmit Triggered");
-
-    e.preventDefault();
-    const form = e.target;
-    const formData = new FormData(form);
-    const name = formData.get("Product-Name");
-    const quantity = formData.get("Quantity");
-    stockUpdate(quantity, name);
+    closeModal();
   };
 
   const stockUpdate = async (Quantity, Name) => {
@@ -36,15 +28,36 @@ function Home() {
     closeModal();
   };
 
-  // const addProduct = async () => {
-  //   await window.api.insertProduct("Sample Product", 9.99);
-  //   const updatedProducts = await window.api.getProducts();
-  //   setProducts(updatedProducts);
-  // };
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    const name = formData.get("Product-Name");
+    const quantity = formData.get("Quantity");
+
+    if (!ifExistsInStock(name)) {
+      addStock(name, quantity);
+    } else {
+      stockUpdate(quantity, name);
+    }
+
+    // stockUpdate(quantity, name);
+  };
+
+  const ifExistsInStock = (Name) => {
+    for (let i = 0; i < stock.length; i++) {
+      if (stock[i].Product_Name === Name) {
+        return true;
+      }
+    }
+    return false;
+  };
 
   const openModal = () => {
     const modal = document.querySelector(".modal");
     modal.style.display = "block";
+    console.log(stock, products);
+
     console.log("openModal");
   };
 
@@ -73,8 +86,8 @@ function Home() {
             {stock.map((item) => (
               <tr key={item.ID}>
                 <td className="first-col">{item.Product_Name}</td>
-                <td>{item.Quantity}</td>
-                <td>${item.Price}</td>
+                <td>x{item.Quantity}</td>
+                <td>Rs. {item.Price * item.Quantity}</td>
               </tr>
             ))}
           </tbody>

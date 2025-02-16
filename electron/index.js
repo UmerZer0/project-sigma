@@ -4,6 +4,7 @@ const {
   insertProduct,
   getAllProducts,
   getStock,
+  insertStock,
   updateStock,
 } = require("./db"); // Import database functions
 
@@ -45,9 +46,12 @@ ipcMain.handle("insert-product", async (event, { name, price }) => {
   return insertProduct(name, price);
 });
 
-ipcMain.handle("insert-stock", async (event, { product_id, quantity }) => {
-  return insertStock(product_id, quantity);
-});
+ipcMain.handle(
+  "insert-stock",
+  async (event, { product_name, quantity, price }) => {
+    return insertStock(product_name, quantity, price);
+  }
+);
 
 ipcMain.handle("update-stock", async (event, { quantity, product_name }) => {
   return updateStock(quantity, product_name);

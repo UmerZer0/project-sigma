@@ -88,13 +88,13 @@ const insertProduct = (name, price) => {
 };
 
 // Insert stock
-const insetStock = (name, quantity) => {
+const insertStock = (name, quantity, price) => {
   try {
     const stmt = db.prepare(
-      "INSERT INTO stock (Product_Name, Quantity) VALUES (?, ?)"
+      "INSERT INTO stock (Product_Name, Quantity, Price) VALUES (?, ?, ?)"
     );
-    const result = stmt.run(name, quantity);
-    console.log(`✅ Stock inserted: ${name} (${quantity})`);
+    const result = stmt.run(name, quantity, price);
+    console.log(`✅ Stock inserted: ${name} (${quantity}) ${price}`);
     return result;
   } catch (err) {
     console.error("❌ Error inserting stock:", err);
@@ -124,6 +124,6 @@ module.exports = {
   getProductById,
   getStock,
   insertProduct,
-  insetStock,
+  insertStock,
   updateStock,
 };

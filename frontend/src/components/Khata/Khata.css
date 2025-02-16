@@ -9,6 +9,10 @@
   justify-content: center;
 }
 
+.khata-body:first-child {
+  border-right: 1px solid var(--border);
+}
+
 .expense-body {
   /* border: left 1px solid var(--border); */
   /* border-left: 1px solid var(--border);
