@@ -13,9 +13,17 @@
 .expense-section {
   display: grid;
   justify-items: center;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto auto 1fr;
+  /* min-height: calc(100vh - 1px); */
+  min-height: calc(100vh - var(--button-flat-size) - (1px * 2));
+  /* --button-flat-size : Size of back button, 1px : Size of border   */
   font-family: var(--font-primary);
   font-weight: var(--font-weight-semibold);
+
+  position: relative;
+  /* outline: auto; */
+
+  /* min-height: 100vh; */
 }
 
 .sale-body {

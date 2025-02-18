@@ -1,9 +1,25 @@
 import React from "react";
 import Back_Button from "../utilities/Back_Button";
+import Modal from "../utilities/Modal";
+
+const saleFields = {
+  Name: "text",
+  Amount: "number",
+};
+
+const expenseFields = {
+  Name: "text",
+  Type: ["select", ["Shop", "Home", "Other"]],
+  Amount: "number",
+};
 
 function Home() {
   return (
     <>
+      {/* <Back_Button />
+      <Modal heading="Add Sale" inputs={saleFields} />
+      <Modal heading="Add Expense" inputs={expenseFields} /> */}
+
       <div className="outer-body">
         <Back_Button />
         <div className="khata-body">

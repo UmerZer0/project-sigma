@@ -144,8 +144,9 @@ h1 > span {
 }
 
 .add-btn {
-  position: fixed;
+  /* position: fixed; */
   /*! Erm What the Sigma  */
+  position: absolute;
   bottom: 2rem;
   right: 2rem;
 
