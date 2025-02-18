@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import React from "react";
 import Back_Button from "../utilities/Back_Button";
 import Modal from "../utilities/Modal";
@@ -14,10 +15,12 @@ const expenseFields = {
 };
 
 function Home() {
+  const saleModalRef = useRef();
+  const expenseModalRef = useRef();
+
   return (
     <>
       {/* <Back_Button />
-      <Modal heading="Add Sale" inputs={saleFields} />
       <Modal heading="Add Expense" inputs={expenseFields} /> */}
 
       <div className="outer-body">
@@ -33,7 +36,16 @@ function Home() {
                 </tr>
               </thead>
             </table>
-            <button className="add-btn btn">+</button>
+            <Modal heading="Add Sale" inputs={saleFields} ref={saleModalRef} />
+            <button
+              className="add-btn btn"
+              onClick={() => {
+                expenseModalRef.current.closeModal();
+                saleModalRef.current.openModal();
+              }}
+            >
+              +
+            </button>
           </section>
           <section className="expense-section">
             <h1>Expense</h1>
@@ -46,7 +58,20 @@ function Home() {
                 </tr>
               </thead>
             </table>
-            <button className="add-btn btn">+</button>
+            <Modal
+              heading="Add Expense"
+              inputs={expenseFields}
+              ref={expenseModalRef}
+            />
+            <button
+              className="add-btn btn"
+              onClick={() => {
+                saleModalRef.current.closeModal();
+                expenseModalRef.current.openModal();
+              }}
+            >
+              +
+            </button>
           </section>
         </div>
       </div>
