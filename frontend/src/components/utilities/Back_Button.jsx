@@ -5,8 +5,8 @@ function Back_Button() {
   return (
     <>
       <div className="back-btn-box">
-        <Link className="back-btn btn" to="/">
-          Back to Dashboard
+        <Link className="back-btn btn" to="../">
+          Back
         </Link>
       </div>
     </>

@@ -49,6 +49,14 @@
   --button-primary-size: 9rem;
   --button-secondary-size: 4rem;
   --button-flat-size: 2.5rem;
+
+  /* Border Radius*/
+  --border-radius: calc(var(--button-primary-size) * 0.05);
+}
+
+* {
+  box-sizing: border-box;
+  font-family: var(--font-primary);
 }
 
 body,
@@ -58,7 +66,8 @@ button {
   background-color: #1d1d1d;
 }
 
-h1 {
+h1,
+h2 {
   color: var(--text-primary);
   font-family: var(--font-primary);
   font-weight: var(--font-weight-bold);
@@ -66,6 +75,26 @@ h1 {
 
 h1 > span {
   text-decoration: wavy underline var(--accent-blue) 4px;
+}
+
+::-webkit-scrollbar {
+  width: 0.3em;
+  margin: 5em;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-input);
+  border-right: var(--bg-primary) 2px solid;
+  border-radius: 100vw;
+  cursor: pointer;
+}
+
+::-webkit-scrollbar-track {
+  margin-block: 0.2em;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--bg-hover);
 }
 
 .dashboard-body {
@@ -177,6 +206,58 @@ h1 > span {
   border-radius: calc(var(--button-primary-size) * 0.05);
   width: 80%;
 } */
+
+.search-box {
+  /* outline: auto; */
+  display: grid;
+  place-self: center;
+  place-content: center;
+  font-size: var(--font-size-h2);
+
+  min-height: calc(100vh - var(--button-flat-size) - (1px * 2));
+}
+
+.search-bar {
+  background-color: var(--bg-secondary);
+  border: 1px var(--border) solid;
+
+  border-bottom: none;
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+
+  font-size: inherit;
+  padding: 0.5em;
+}
+
+.search-bar,
+.result {
+  color: var(--text-primary);
+}
+
+.search-results {
+  border: 1px var(--border) solid;
+  border-top: none;
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+
+  /* outline: auto; */
+
+  min-width: 100%;
+  min-height: calc(var(--font-size-h2) * 5 + 0.3em * 4 * 2);
+  max-height: calc(var(--font-size-h2) * 5 + 0.3em * 4 * 2);
+
+  overflow-y: scroll;
+  /* scrollbar-color: var(--bg-secondary) var(--bg-primary);
+  scrollbar-width: thin; */
+}
+
+.search-results > a {
+  text-decoration: none;
+}
+
+.result {
+  /* outline: auto; */
+  padding: 0.3em 0.5em;
+  text-decoration: none;
+}
 
 table {
   width: 80%;

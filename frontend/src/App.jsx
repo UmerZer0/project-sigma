@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Dashboard from "./components/Dashboard";
 import Stock from "./components/Stock/Home";
-import Invoice from "./components/Invoice/Home";
+import Invoice from "./components/Invoice/Invoice";
 import Admin from "./components/Admin/Home";
 import Khata from "./components/Khata/Home";
 
@@ -19,7 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/stock" element={<Stock />} />
-          <Route path="/invoice" element={<Invoice />} />
+          <Route path="/invoice/*" element={<Invoice />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/khata" element={<Khata />} />
         </Routes>
