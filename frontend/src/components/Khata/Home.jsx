@@ -1,22 +1,32 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import React from "react";
 import Back_Button from "../utilities/Back_Button";
 import Modal from "../utilities/Modal";
 
-const saleFields = {
-  Name: "text",
-  Amount: "number",
-};
-
-const expenseFields = {
-  Name: "text",
-  Type: ["select", ["Shop", "Home", "Other"]],
-  Amount: "number",
-};
-
 function Home() {
   const saleModalRef = useRef();
   const expenseModalRef = useRef();
+
+  const [sale, setSale] = useState([]);
+  const [expense, setExpense] = useState([]);
+
+  useEffect(() => {
+    window.api.getSale().then(setSale);
+    window.api.getExpense().then(setExpense);
+  }, []);
+
+  console.log(sale, expense);
+
+  const saleFields = {
+    Name: "text",
+    Amount: "number",
+  };
+
+  const expenseFields = {
+    Name: "text",
+    Type: ["select", ["Shop", "Home", "Other"]],
+    Amount: "number",
+  };
 
   return (
     <>
@@ -35,6 +45,14 @@ function Home() {
                   <th>&nbsp;Amount</th>
                 </tr>
               </thead>
+              <tbody>
+                {sale.map((record) => (
+                  <tr>
+                    <td>{record.Name}</td>
+                    <td>{record.Amount}</td>
+                  </tr>
+                ))}
+              </tbody>
             </table>
             <Modal heading="Add Sale" inputs={saleFields} ref={saleModalRef} />
             <button
@@ -57,6 +75,15 @@ function Home() {
                   <th>&nbsp;Amount</th>
                 </tr>
               </thead>
+              <tbody>
+                {expense.map((record) => (
+                  <tr>
+                    <td>{record.Name}</td>
+                    <td>{record.Type}</td>
+                    <td>{record.Amount}</td>
+                  </tr>
+                ))}
+              </tbody>
             </table>
             <Modal
               heading="Add Expense"

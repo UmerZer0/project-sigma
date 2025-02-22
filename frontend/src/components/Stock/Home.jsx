@@ -82,7 +82,6 @@ function Home() {
             </tr>
           </thead>
           <tbody>
-            <tr></tr>
             {stock.map((item) => (
               <tr key={item.ID}>
                 <td className="first-col">{item.Product_Name}</td>

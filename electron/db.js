@@ -117,12 +117,38 @@ const updateStock = (quantity, name) => {
   }
 };
 
+// Get Sale
+const getSale = () => {
+  try {
+    const sale = db.prepare("SELECT * FROM sale").all();
+    console.log(`📦 Retrieved ${sale.length} stock.`);
+    return sale;
+  } catch (err) {
+    console.error("❌ Error fetching stock:", err);
+    return [];
+  }
+};
+
+// Get Expense
+const getExpense = () => {
+  try {
+    const expense = db.prepare(`SELECT * FROM expense`).all();
+    console.log(`📦 Retrieved ${expense.length} stock.`);
+    return expense;
+  } catch (err) {
+    console.error("❌ Error fetching stock:", err);
+    return [];
+  }
+};
+
 // Export functions
 
 module.exports = {
   getAllProducts,
   getProductById,
   getStock,
+  getSale,
+  getExpense,
   insertProduct,
   insertStock,
   updateStock,

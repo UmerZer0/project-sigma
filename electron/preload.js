@@ -9,4 +9,6 @@ contextBridge.exposeInMainWorld("api", {
     ipcRenderer.invoke("update-stock", { quantity, product_name }),
   getProducts: () => ipcRenderer.invoke("get-products"),
   getStock: () => ipcRenderer.invoke("get-stock"),
+  getSale: () => ipcRenderer.invoke("get-sale"),
+  getExpense: () => ipcRenderer.invoke("get-expense"),
 });

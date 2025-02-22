@@ -4,6 +4,8 @@ const {
   insertProduct,
   getAllProducts,
   getStock,
+  getSale,
+  getExpense,
   insertStock,
   updateStock,
 } = require("./db"); // Import database functions
@@ -40,6 +42,14 @@ ipcMain.handle("get-products", async () => {
 
 ipcMain.handle("get-stock", async () => {
   return getStock();
+});
+
+ipcMain.handle("get-sale", async () => {
+  return getSale();
+});
+
+ipcMain.handle("get-expense", async () => {
+  return getExpense();
 });
 
 ipcMain.handle("insert-product", async (event, { name, price }) => {
